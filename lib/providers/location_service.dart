@@ -12,12 +12,7 @@ class Location {
 class MyLocations with ChangeNotifier {
   //List<String> locations = ["London", "Paris", "New York"];
 
-  List<Location> locations = [
-    // Location(city: 'London', isDefault: true),
-    // Location(city: 'Paris'),
-    // Location(city: 'Berlin'),
-    // Location(city: 'New Orleans'),
-  ];
+  List<Location> locations = [];
 
   Future<void> fetchAndSetLocations() async {
     locations = [];
@@ -25,29 +20,35 @@ class MyLocations with ChangeNotifier {
     data.forEach((lokacija) {
       locations.add(Location(city: lokacija['city'], isDefault: lokacija['isFavorite'] == 0 ? false : true));
     });
-    print(data);
     notifyListeners();
   }
 
   Future<void> addLocation(String city) async {
-    return Future.delayed(Duration(seconds: 2), () {
+    return Future.delayed(Duration(seconds: 2), () async {
       //locations.add(Location(city: city));
       //database
+      var count = await DBHelper.getData('locations');
       DBHelper.insert('locations', {
         'city': city,
-        'isFavorite': 0
+        'isFavorite': count.length == 0 ? 1 : 0
       });
       var data = DBHelper.getData('locations');
       data.then((value) => print(value));
       fetchAndSetLocations();
     });
-    //return Future.delayed(Duration(seconds: 2), () => throw Exception('Logout failed: user ID is invalid'));
   }
 
   Future<void> deleteLocation(String cityToRemove) async {
-    //locations.removeWhere((location) => location.city == cityToRemove);
+    locations.removeWhere((location) => location.city == cityToRemove);
     await DBHelper.delete('locations', 'city', cityToRemove);
-    fetchAndSetLocations();
+    if(locations.length > 0) {
+      var loc = locations.firstWhere((element) => element.city != cityToRemove);
+      print(loc.city);
+      updateDefaultLocation(loc.city);
+    }
+    else {
+      fetchAndSetLocations();
+    }
   }
 
 
@@ -62,7 +63,8 @@ class MyLocations with ChangeNotifier {
     var location = locations.firstWhere((location) => location.city == city);
     location.isDefault = true;
     DBHelper.update('locations', {'city': location.city, 'isFavorite': 1}, 'city', location.city);
-    notifyListeners();
+    fetchAndSetLocations();
+    //notifyListeners();
   }
 
   String getDefaultCity() {
