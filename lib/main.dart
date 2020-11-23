@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather_service.dart';
 import 'package:weather_app/providers/location_service.dart';
@@ -8,6 +9,10 @@ import 'screens/app.dart';
 import 'screens/weather_screen.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
   runApp(MyApp());
 }
 

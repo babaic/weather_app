@@ -29,11 +29,14 @@ class _MyLocationsScreenState extends State<MyLocationsScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<WeatherService>(context).fetchAndSetWeatherMultipleCities(Provider.of<MyLocations>(context, listen: false).myLocations).then((value) {
+      Provider.of<MyLocations>(context, listen: false).fetchAndSetLocations().then((value) {
+        Provider.of<WeatherService>(context, listen: false).fetchAndSetWeatherMultipleCities(Provider.of<MyLocations>(context, listen: false).myLocations).then((value) {
         setState((){
           _isLoading = false;
         });
       });
+      });
+      
     }
     _isInit = false;
 

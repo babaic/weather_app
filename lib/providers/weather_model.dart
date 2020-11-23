@@ -4,10 +4,10 @@ class Weather {
   final String country;
   final DateTime date;
   final double temperature;
-  final int humidity;
-  final double wind;
-  final int pressure;
-  final int cloudiness;
+  final dynamic humidity;
+  final dynamic wind;
+  final dynamic pressure;
+  final dynamic cloudiness;
   final String icon;
   final String description;
   final bool isFavorite;

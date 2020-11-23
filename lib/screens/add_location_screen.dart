@@ -53,9 +53,12 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
   }
 
   void navigateToPage(int index) {
-    switch(index) {
-      case 0: Navigator.of(context).pushNamed(WeatherScreen.routeName); break;
-      default: break;
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushNamed(WeatherScreen.routeName);
+        break;
+      default:
+        break;
     }
   }
 
@@ -63,13 +66,16 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
   Widget build(BuildContext context) {
     var items = Provider.of<MyLocations>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(title: Text('Add Location')),
-        body: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
+      appBar: AppBar(
+        title: Text('Add Location'),
+      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -166,6 +172,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                   ],
                 ),
               ),
-        );
+            ),
+    );
   }
 }

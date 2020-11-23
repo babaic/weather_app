@@ -31,10 +31,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<WeatherService>(context).fetchAndSetWeather(Provider.of<MyLocations>(context, listen: false).getDefaultCity()).then((value) {
+      Provider.of<MyLocations>(context, listen:false).fetchAndSetLocations().then((value) {
+        Provider.of<WeatherService>(context, listen: false).fetchAndSetWeather(Provider.of<MyLocations>(context, listen: false).getDefaultCity()).then((value) {
         setState((){
           _isLoading = false;
         });
+      });
       });
     }
     _isInit = false;
