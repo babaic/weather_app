@@ -76,7 +76,7 @@ class _MyLocationsScreenState extends State<MyLocationsScreen> {
                 ),
                 //Spacer(),
                 Text(
-                  (temperature < 10 ? temperature.toString().substring(0,1) : temperature.toString().substring(0,2)) + displayUnit,
+                  (temperature < 10 && temperature >= 0 ? temperature.toString().substring(0,1) : temperature.toString().substring(0,2)) + displayUnit,
                   style: TextStyle(
                       color: Theme.of(context).primaryColor, fontSize: 30),
                 ),

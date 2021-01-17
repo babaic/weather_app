@@ -192,7 +192,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                                   forecast[0].icon +
                                                   '@2x.png')),
                                       Text(
-                                        forecast[0].temperature < 10
+                                        forecast[0].temperature < 10 && forecast[0].temperature >= 0
                                             ? forecast[0]
                                                 .temperature
                                                 .toString()
@@ -289,7 +289,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                         .format(forecast[i + 1].date),
                                 forecast[i + 1].icon,
                                 forecast[i + 1].description,
-                                forecast[i + 1].temperature < 10
+                                forecast[i + 1].temperature < 10 && forecast[i + 1].temperature >=0
                                     ? forecast[i + 1]
                                             .temperature
                                             .toString()
